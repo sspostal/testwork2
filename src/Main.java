@@ -49,7 +49,6 @@ class Subtraction implements Operation {
         this.b = b.replace("\"", "");
     }
 
-
     public String execute() {
         int index = a.indexOf(b);
         if (index == -1) {
@@ -71,10 +70,13 @@ class Multiplication implements Operation {
 
     public String execute() {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < multiplier; i++) {
-            result.append(a);
+        if ((multiplier > 0 ) && (multiplier <= 10)) {
+            for (int i = 0; i < multiplier; i++) {
+                result.append(a);
+            }
+            return result.toString();
         }
-        return result.toString();
+        else return "Число должно быть от [1:10]";
     }
 }
 
@@ -87,10 +89,13 @@ class Division implements Operation {
         this.divisor = Integer.parseInt(b);
     }
 
-
     public String execute() {
-        int newLen = a.length() / divisor;
-        return a.substring(0, newLen);
+
+        if ((divisor > 0) && (divisor <= 10))  {
+            int newLen = a.length() / divisor;
+            return a.substring(0, newLen);
+        }
+        else return "Число должно быть от [1:10]";
     }
 }
 
