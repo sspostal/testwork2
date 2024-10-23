@@ -36,6 +36,9 @@ class Addition implements Operation {
     }
 
     public String execute() {
+        if (a.length() >= 10) {
+            return "должны приниматься строки до 10 символов включительно ";
+        }
         return a + b;
     }
 }
@@ -50,6 +53,9 @@ class Subtraction implements Operation {
     }
 
     public String execute() {
+        if (a.length() >= 10) {
+            return "должны приниматься строки до 10 символов включительно ";
+        }
         int index = a.indexOf(b);
         if (index == -1) {
             return a;
@@ -70,7 +76,10 @@ class Multiplication implements Operation {
 
     public String execute() {
         StringBuilder result = new StringBuilder();
-        if ((multiplier > 0 ) && (multiplier <= 10)) {
+        if (a.length() >= 10) {
+            return "должны приниматься строки до 10 символов включительно ";
+        }
+        else if ((multiplier > 0 ) && (multiplier <= 10)) {
             for (int i = 0; i < multiplier; i++) {
                 result.append(a);
             }
@@ -90,8 +99,10 @@ class Division implements Operation {
     }
 
     public String execute() {
-
-        if ((divisor > 0) && (divisor <= 10))  {
+        if (a.length() >= 10) {
+            return "должны приниматься строки до 10 символов включительно";
+        }
+        else if ((divisor > 0) && (divisor <= 10))  {
             int newLen = a.length() / divisor;
             return a.substring(0, newLen);
         }
