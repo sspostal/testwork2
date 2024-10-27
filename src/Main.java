@@ -60,7 +60,9 @@ class Subtraction implements Operation {
         if (index == -1) {
             return a;
         } else {
-            return a.substring(0, index);
+            String result = a.substring(0, index);
+            result += a.substring(index + b.length());
+            return result;
         }
     }
 }
