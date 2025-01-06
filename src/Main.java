@@ -1,16 +1,13 @@
 import java.util.Scanner;
-// новый идея
 
 public class Main {
     public static void main(String[] args) throws Exception {
         Scanner scn = new Scanner(System.in);
         String line = scn.nextLine();
         Operation operation = OperationIdent.ident(line);
-
         if (operation == null) {
             throw new Exception("Некорректный знак действия");
         }
-
         String result = operation.execute();
         printInQuotes(result);
     }
@@ -22,9 +19,8 @@ public class Main {
         System.out.println("\"" + text + "\"");
     }
 }
-
 interface Operation {
-    String execute();
+    String execute() throws Exception;
 }
 
 class Addition implements Operation {
@@ -35,7 +31,7 @@ class Addition implements Operation {
         this.a = a.replace("\"", "");
         this.b = b.replace("\"", "");
     }
-
+    @Override
     public String execute() {
         if (a.length() >= 10) {
             return "Строка должна быть до 10 символов вкл";
@@ -52,7 +48,7 @@ class Subtraction implements Operation {
         this.a = a.replace("\"", "");
         this.b = b.replace("\"", "");
     }
-
+    @Override
     public String execute() {
         if (a.length() >= 10) {
             return "Строка должна быть до 10 символов вкл";
@@ -76,16 +72,14 @@ class Multiplication implements Operation {
         this.a = a.replace("\"", "");
         this.multiplier = Integer.parseInt(b);
     }
-
+    @Override
     public String execute() {
         StringBuilder result = new StringBuilder();
         if (a.length() >= 10) {
             return "Строка должна быть до 10 символов вкл";
         }
         else if ((multiplier > 0 ) && (multiplier <= 10)) {
-            for (int i = 0; i < multiplier; i++) {
-                result.append(a);
-            }
+            result.append(a.repeat(multiplier));
             return result.toString();
         }
         else return "Число должно быть от [1:10]";
@@ -100,10 +94,10 @@ class Division implements Operation {
         this.a = a.replace("\"", "");
         this.divisor = Integer.parseInt(b);
     }
-
-    public String execute() {
+    @Override
+    public String execute() throws Exception {
         if (a.length() >= 10) {
-            return "Строка должна быть до 10 символов вкл";
+            throw new Exception("лина до 10 символов");
         }
         else if ((divisor > 0) && (divisor <= 10))  {
             int newLen = a.length() / divisor;
